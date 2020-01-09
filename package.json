@@ -2,7 +2,15 @@
   "name": "ToDo-Websocket",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "npx nodemon server.js"
+  },
   "repository": "git@github.com:eremziom/ToDo-Websocket.git",
   "author": "Maciej Kryczka <maciejkryczka@hotmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2",
+    "socket.io": "^2.3.0"
+  }
 }
