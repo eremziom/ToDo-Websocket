@@ -1,10 +1,11 @@
 import React from 'react';
 import io from 'socket.io-client';
-import ReactHtmlParser from 'react-html-parser';
-
-
 
 class App extends React.Component {
+
+  state = {
+    tasks: ['cos', 'nic'],
+  };
 
   componentDidMount() {
     this.socket = io( 'http://localhost:8000' );
@@ -12,26 +13,18 @@ class App extends React.Component {
 
   clicker(task) {
     console.log(task);
+    const index = this.state.tasks.indexOf(task);
+    this.removeTask(index);
   }
-  render() {
 
-    const tasks = ['cos', 'nic'];
-    /*document.body.addEventListener('click', function(event){
-      if(event.srcElement.id === "remove-button") {
-        console.log('klik', event.srcElement.parentNode.firstChild.data);
-        const taskName = event.srcElement.parentNode.firstChild.data;
-        console.log('taskName = ', taskName)
-        for(let task of tasks){
-          if(task == taskName){
-            console.log(tasks.indexOf(task));
-            const index = tasks.indexOf(task);
-            tasks.splice(index, 1)
-            console.log(tasks);
-            
-          }
-        }
-      }
-    })*/
+  removeTask(index){
+    console.log('index to: ', index);
+    console.log('przed ', this.state.tasks)
+    this.setState(this.state.tasks.splice(index, 1))
+    console.log('po', this.state.tasks)
+  }
+
+  render() {
     return (
       <div className="App">
         <header>
@@ -42,7 +35,7 @@ class App extends React.Component {
           <h2>Tasks</h2>
 
           <ul className="task-section__list" id="task-list">
-            {tasks.map(task => (             
+            {this.state.tasks.map(task => (             
             <li key={task} className="task">{task}<button onClick={() => this.clicker(task)} className="btn btn--red" id="remove-button">Remove</button></li>
             ))}
           </ul>
