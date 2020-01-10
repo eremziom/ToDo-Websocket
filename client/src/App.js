@@ -8,7 +8,7 @@ class App extends React.Component {
 
     this.state = {
       tasks: [],
-      taskName: '',
+      taskName: {},
     };
 
   this.changeValue = this.changeValue.bind(this);
@@ -25,22 +25,19 @@ class App extends React.Component {
   }
 
   updateData(tasks) {
-    console.log(tasks)
     this.setState({tasks: tasks})
   }
 
   removeButton(task) {
-    console.log(task);
     const index = this.state.tasks.indexOf(task);
     this.removeTask(index, task);
   }
 
   removeTask(index, task){
     if(this.state.tasks.find(taskToRemove => taskToRemove.id === task.id)){
-    this.setState(this.state.tasks.splice(index, 1))
-    this.socket.emit('removeTask', index, task)
+      this.setState(this.state.tasks.splice(index, 1))
+      this.socket.emit('removeTask', index, task)
     }
-    console.log(this.state.tasks);
   }
 
   async changeValue(event){
@@ -62,7 +59,6 @@ class App extends React.Component {
       this.state.tasks.push(newTask);
       this.setState(this.state.tasks);
       this.socket.emit('addTask', newTask);
-      console.log(this.state.tasks)
     }
   }
 
