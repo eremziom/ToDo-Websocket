@@ -36,10 +36,11 @@ class App extends React.Component {
   }
 
   removeTask(index, task){
-    if(this.state.tasks.includes(task)){
+    if(this.state.tasks.find(taskToRemove => taskToRemove.id === task.id)){
     this.setState(this.state.tasks.splice(index, 1))
     this.socket.emit('removeTask', index, task)
     }
+    console.log(this.state.tasks);
   }
 
   async changeValue(event){
@@ -49,7 +50,6 @@ class App extends React.Component {
         id: uuidv4()
       }
     });
-    console.log(this.state.taskName);
   }
 
   submitForm(event) {
@@ -58,7 +58,7 @@ class App extends React.Component {
   }
 
   addTask(newTask) {
-    if(!this.state.tasks.find(task => task.id == newTask.id)){
+    if(!this.state.tasks.find(task => task.id === newTask.id)){
       this.state.tasks.push(newTask);
       this.setState(this.state.tasks);
       this.socket.emit('addTask', newTask);
